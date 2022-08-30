@@ -1,0 +1,6 @@
+export * from './lib/backend-auth.service'
+export * from './lib/backend-auth.module'
+export * from './lib/decorators'
+export * from './lib/guard'
+export * from './lib/strategies'
+export * from './lib/login.input'

@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "backend-auth": "libs/backend/auth",
+    "backend-prisma": "libs/backend/prisma",
+    "pet": "apps/pet",
+    "pet-api": "apps/pet-api",
+    "pet-e2e": "apps/pet-e2e"
+  }
+}

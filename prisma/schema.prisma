@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  fullName  String
+  username  String    @unique
+  email     String    @unique
+  phone     String
+  city      String
+  password  String
+  isAdmin   Boolean   @default(false)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  pets      Pet[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  breeds    Breed[]
+  pets      Pet[]
+}
+
+model Breed {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  pets       Pet[]
+}
+
+model Pet {
+  id          Int       @id @default(autoincrement())
+  name        String
+  age         Float?
+  description String
+  photos      String[]
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  breed       Breed?    @relation(fields: [breedId], references: [id])
+  breedId     Int?
+  owner       User?     @relation(fields: [ownerId], references: [id])
+  ownerId     Int?
+  isAvailable Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
